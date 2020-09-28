@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class empSystem implements IComputeEmpWage {
+
 	public static final int IS_FULL_TIME = 1;
 	public static final int IS_PART_TIME = 2;
 
@@ -26,10 +27,11 @@ public class empSystem implements IComputeEmpWage {
 
 	@Override
 	public void computeEmpWage() {
-		CompanyEmpWage companyEmpWage = companyEmpWageList.get(0);
-		companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
-		System.out.println(companyEmpWage);
-
+		for (int i = 0; i < companyEmpWageList.size(); i++) {
+			CompanyEmpWage companyEmpWage = companyEmpWageList.get(i);
+			companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
+			System.out.println(companyEmpWage);
+		}
 	}
 
 	private int computeEmpWage(CompanyEmpWage companyEmpWage) {
@@ -68,5 +70,4 @@ public class empSystem implements IComputeEmpWage {
 		empWageBuilder.addCompanyEmpWage("BigBazar", 10, 4, 20);
 		empWageBuilder.computeEmpWage();
 	}
-
 }
