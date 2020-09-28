@@ -1,31 +1,53 @@
 package com.cg.empWageSystem;
 
 public class empSystem {
-	public static final int IS_PART_TIME = 1;
-	public static final int IS_FULL_TIME = 2;
-	public static final int EMP_RATE_PER_HOUR = 20;
-	public static final int NUM_OF_WORKING_DAYS = 20;
+	public static final int isPartTime = 1;
+	public static final int isFullTime = 2;
+	public static final int empRatePerHr = 20;
+	public static final int numOfDays = 20;
+	public static final int maxHrPerMonth = 100;
 
-	public static void main(String[] args) {
-		int empHrs = 0;
-		int empWage = 0;
-		int totalEmpWage = 0;
+	public String attendance() {
+		double empCheck = Math.floor(Math.random() * 10) % 2;
+		if (empCheck == isFullTime)
+			return "Employee Present";
+		else
+			return "Employee Absent";
+	}
 
-		for (int day = 0; day < NUM_OF_WORKING_DAYS; day++) {
-			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-			switch (empCheck) {
-			case IS_PART_TIME:
+	public double empStatus() {
+		double empCheck = Math.floor(Math.random() * 10) % 3;
+		return empCheck;
+	}
+
+	public int totalWage() {
+		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+		while (totalEmpHrs <= maxHrPerMonth && totalWorkingDays < numOfDays) {
+			totalWorkingDays++;
+			int status = (int) empStatus();
+			switch (status) {
+			case isPartTime:
 				empHrs = 4;
 				break;
-			case IS_FULL_TIME:
+
+			case isFullTime:
 				empHrs = 8;
 				break;
+
 			default:
 				empHrs = 0;
 			}
-			empWage = empHrs * EMP_RATE_PER_HOUR;
-			totalEmpWage += empWage;
-			System.out.println("Emp Wage: " + empWage);
+			totalEmpHrs += empHrs;
+			System.out.println("Day#:" + totalWorkingDays + " EmpHrs: " + empHrs);
 		}
+		int totalEmpWage = totalEmpHrs * empRatePerHr;
+		return totalEmpWage;
+	}
+
+	public static void main(String[] args) {
+		System.out.println("Welcome to Employee Wage Computation");
+		empSystem empobj = new empSystem();
+		int totalWage = empobj.totalWage();
+		System.out.println("Emp Total Wage : " + totalWage);
 	}
 }
